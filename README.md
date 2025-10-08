@@ -92,5 +92,5 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 - 
 **Author 2:**
 - Email: sekar.ma@northeastern.edu
-- LinkedIn: [linkedin.com/in/manasha-sekar](https://linkedin.com/in/manasha-sekar)
+- LinkedIn: [linkedin.com/in/manasha-sekar](https://linkedin.com/in/manasha-sekar-240326148)
 - GitHub: [github.com/manasha](https://github.com/manasha2402)
