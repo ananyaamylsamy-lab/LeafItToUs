@@ -5,6 +5,7 @@
 Name: Ananyaa Mylsamy
 Email: mylsamy.a@northeastern.edu  
 NUID: 002022427
+
 **Author 2:**
 Name: Manasha Sekar
 Email: sekar.ma@northeastern.edu  
@@ -88,6 +89,7 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 - Email: mylsamy.a@northeastern.edu
 - LinkedIn: [linkedin.com/in/ananyaa-mylsamy/](https://www.linkedin.com/in/ananyaa-mylsamy/)
 - GitHub: [github.com/Anumyl](https://github.com/Anumyl)
+- 
 **Author 2:**
 - Email: sekar.ma@northeastern.edu
 - LinkedIn: https://www.linkedin.com/in/manasha-sekar-240326148/
