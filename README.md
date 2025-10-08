@@ -3,11 +3,13 @@
 ## Authors
 **Author 1:**
 Name: Ananyaa Mylsamy
+
 Email: mylsamy.a@northeastern.edu  
 NUID: 002022427
 
 **Author 2:**
 Name: Manasha Sekar
+
 Email: sekar.ma@northeastern.edu  
 NUID: 002711528
 
@@ -92,5 +94,5 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 - 
 **Author 2:**
 - Email: sekar.ma@northeastern.edu
-- LinkedIn: https://www.linkedin.com/in/manasha-sekar-240326148/
-- GitHub: https://github.com/manasha2402
+- LinkedIn: linkedin.com/in/manasha-sekar-240326148/
+- GitHub: github.com/manasha2402
