@@ -1,5 +1,5 @@
 // Authentication utility module
-import { api } from "../api.js";
+import { api } from "./api.js";
 
 export const auth = {
   async checkAuth() {
