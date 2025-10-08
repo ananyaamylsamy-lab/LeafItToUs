@@ -2,14 +2,12 @@
 
 ## Authors
 **Author 1:**
-Name: Ananyaa Mylsamy
-
+Name: Ananyaa Mylsamy  
 Email: mylsamy.a@northeastern.edu  
 NUID: 002022427
 
 **Author 2:**
-Name: Manasha Sekar
-
+Name: Manasha Sekar  
 Email: sekar.ma@northeastern.edu  
 NUID: 002711528
 
