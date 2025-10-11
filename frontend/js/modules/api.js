@@ -1,5 +1,5 @@
 // API module for making requests to backend
-const API_URL = "http://localhost:3000/api";
+const API_URL = "/api";
 
 export const api = {
   // Generic fetch wrapper
