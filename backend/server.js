@@ -2,8 +2,8 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";  // ADD THIS
-import { fileURLToPath } from "url";  // ADD THIS
+import path from "path";
+import { fileURLToPath } from "url";
 import { connectDB } from "./config/database.js";
 import authRoutes from "./routes/auth.js";
 import diagnosesRoutes from "./routes/diagnoses.js";
@@ -11,7 +11,6 @@ import treatmentsRoutes from "./routes/treatments.js";
 
 dotenv.config();
 
-// ADD THESE TWO LINES - needed for ES6 modules to get __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -33,14 +32,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     },
   })
 );
 
-// ADD THIS - Serve static files from frontend folder
+// Serve static files from frontend folder
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Routes
@@ -53,7 +53,7 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Leaf It to Us API is running" });
 });
 
-// ADD THIS - Catch-all route to serve index.html (must be AFTER API routes)
+// Catch-all route to serve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
