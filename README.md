@@ -134,7 +134,7 @@ Create a .env file in the backend directory:
    npm start
    ```
 
-2. Open website at `http://localhost:3000`
+2. Open the website at `http://localhost:3000`
 
 ## License
 MIT License - Permission is hereby granted to use, copy, modify, and distribute this software.
@@ -156,8 +156,8 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 
 **Use of AI**
 1. **Brainstorming**
-   - Prompts: "I want shades for green to put in my web project give me few gradients"
+   - Prompts: "I want shades for green to put in my web project, give me a few gradients."
 2. **Git Issue**              
-               "I am facing this git merge issues and there is screenshot attached."
+   - Prompts: "I am facing these git merge issues, and there isa  screenshot attached."
 3. **Mongo Atlas**
-               "I want to export my collection from mongo atlas what i should do"
+   - Prompts: "I want to export my collection from MongoDB Atlas. What should I do?"
