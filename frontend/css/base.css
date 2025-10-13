@@ -657,3 +657,44 @@ footer p {
   margin: 0;
   font-size: 0.9rem;
 }
+
+.treatment-results {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 8px;
+  background: white;
+  display: none; /* ADD THIS - Hidden by default */
+}
+
+.treatment-option {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.treatment-option:hover {
+  background: #f7fafc;
+}
+
+.treatment-option.selected {
+  background: #e6f2ff;
+  border-left: 3px solid #667eea;
+}
+
+.treatment-option:last-child {
+  border-bottom: none;
+}
+
+.treatment-option-name {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 3px;
+  font-size: 0.95rem;
+}
+
+.treatment-option-keywords {
+  font-size: 0.85rem;
+  color: #666;
+}

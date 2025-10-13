@@ -1,6 +1,6 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
-import * as treatmentsModule from "./treatments.js";
+import { openApplyTreatmentModal } from "./applyTreatments.js";
 
 let currentUser = null;
 let diagnoses = [];
@@ -14,7 +14,7 @@ export function init(user) {
 export async function loadDiagnoses(filters = {}) {
   try {
     diagnoses = await api.diagnoses.getAll(filters);
-    renderDiagnoses();
+    await renderDiagnoses();
     return diagnoses;
   } catch (error) {
     console.error("Error loading diagnoses:", error);
@@ -24,13 +24,20 @@ export async function loadDiagnoses(filters = {}) {
 }
 
 // Render diagnoses
-function renderDiagnoses() {
+async function renderDiagnoses() {
   const container = document.getElementById("diagnosesContainer");
   
   if (diagnoses.length === 0) {
     container.innerHTML = '<p class="empty-state">No diagnoses yet. Add your first plant problem!</p>';
     return;
   }
+  
+  // Fetch all treatments to get names
+  const allTreatments = await api.treatments.getAll();
+  const treatmentMap = {};
+  allTreatments.forEach(t => {
+    treatmentMap[t._id] = t.name;
+  });
   
   container.innerHTML = diagnoses.map(diagnosis => `
     <div class="diagnosis-card" data-id="${diagnosis._id}">
@@ -46,12 +53,15 @@ function renderDiagnoses() {
         <div class="applied-treatments">
           <h4>Applied Treatments:</h4>
           <ul>
-            ${diagnosis.treatments.map(t => `
-              <li>
-                <span class="treatment-result result-${t.result.replace(/'/g, '').replace(/ /g, '-')}">${t.result}</span>
-                Applied by ${t.appliedBy} on ${utils.formatDate(t.appliedAt)}
-              </li>
-            `).join('')}
+            ${diagnosis.treatments.map(t => {
+              const treatmentName = treatmentMap[t.treatmentId] || 'Unknown Treatment';
+              return `
+                <li>
+                  <span class="treatment-result result-${t.result.replace(/'/g, '').replace(/ /g, '-')}">${t.result}</span>
+                  Applied <strong>${utils.escapeHtml(treatmentName)}</strong> on ${utils.formatDate(t.appliedAt)}
+                </li>
+              `;
+            }).join('')}
           </ul>
         </div>
       ` : ''}
@@ -77,7 +87,7 @@ function renderDiagnoses() {
   });
 }
 
-// Actions: edit, delete, apply treatment - implementation.
+// Actions: edit, delete, apply treatment - implementation
 async function handleDiagnosisAction(e) {
   const action = e.target.dataset.action;
   const card = e.target.closest('.diagnosis-card');
@@ -101,17 +111,19 @@ async function handleDiagnosisAction(e) {
       break;
       
     case 'apply':
-      await openApplyTreatmentModal(diagnosisId);
+      await openApplyTreatmentModal(diagnosisId, loadDiagnoses);
       break;
   }
 }
 
+// Open edit modal
 async function openEditDiagnosisModal(diagnosisId) {
   const diagnosis = diagnoses.find(d => d._id === diagnosisId);
   if (!diagnosis) {
     utils.showAlert('Diagnosis not found', 'error');
     return;
   }
+  
   const modal = document.createElement('div');
   modal.className = 'modal active';
   modal.innerHTML = `
@@ -130,38 +142,29 @@ async function openEditDiagnosisModal(diagnosisId) {
         <div class="form-group">
           <label class="form-label">Status</label>
           <select name="status" class="form-select" required>
-            <option value="ongoing" ${diagnosis.status === 'ongoing' ? 'selected' : ''}>
-            Ongoing
-            </option>
-            <option value="resolved" ${diagnosis.status === 'resolved' ? 'selected' : ''}>
-              Resolved
-            </option>
+            <option value="ongoing" ${diagnosis.status === 'ongoing' ? 'selected' : ''}>Ongoing</option>
+            <option value="resolved" ${diagnosis.status === 'resolved' ? 'selected' : ''}>Resolved</option>
           </select>
         </div>
         
         <div class="form-group">
           <label class="form-label">Symptoms</label>
           <input type="text" name="symptoms" class="form-input" 
-                 value="${utils.escapeHtml(diagnosis.symptoms)}" required
-                 placeholder="e.g., yellow leaves, wilting, brown spots">
+                 value="${utils.escapeHtml(diagnosis.symptoms)}" required>
         </div>
         
         <div class="form-group">
           <label class="form-label">Photo URL (optional)</label>
           <input type="url" name="photoUrl" class="form-input" 
-                 value="${diagnosis.photoUrl || ''}"
-                 placeholder="https://example.com/photo.jpg">
+                 value="${diagnosis.photoUrl || ''}">
         </div>
         
         <div class="form-group">
           <label class="form-label">Description</label>
-          <textarea name="description" class="form-textarea" 
-                    placeholder="Describe the problem in detail...">${utils.escapeHtml(diagnosis.description || '')}</textarea>
+          <textarea name="description" class="form-textarea">${utils.escapeHtml(diagnosis.description || '')}</textarea>
         </div>
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </div>
+        
+        <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
     </div>
   `;
@@ -170,136 +173,26 @@ async function openEditDiagnosisModal(diagnosisId) {
   
   const form = modal.querySelector('#editDiagnosisForm');
   const closeBtn = modal.querySelector('.modal-close');
-  const cancelBtn = modal.querySelector('.cancel-btn');
   
-  const closeModal = () => {
-    modal.classList.remove('active');
-    setTimeout(() => modal.remove(), 300);
-  };
-
-  closeBtn.addEventListener('click', closeModal);
-  cancelBtn.addEventListener('click', closeModal);
-  
+  closeBtn.addEventListener('click', () => modal.remove());
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
+    if (e.target === modal) modal.remove();
   });
   
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
     const formData = new FormData(form);
-    const updateData = {
-      plantName: formData.get('plantName'),
-      status: formData.get('status'),
-      symptoms: formData.get('symptoms'),
-      photoUrl: formData.get('photoUrl'),
-      description: formData.get('description')
-    };
-    
-    if (!updateData.photoUrl) delete updateData.photoUrl;
-    if (!updateData.description) delete updateData.description;
+    const data = Object.fromEntries(formData);
     
     try {
-      await api.diagnoses.update(diagnosisId, updateData);
-      utils.showAlert(`Diagnosis updated successfully!`);
-      
-      closeModal();
+      await api.diagnoses.update(diagnosisId, data);
+      utils.showAlert('Diagnosis updated successfully!', 'success');
+      modal.remove();
       await loadDiagnoses();
     } catch (error) {
-      console.error('Error updating diagnosis:', error);
-      utils.showAlert('Failed to update diagnosis. Please try again.', 'error');
+      utils.showAlert('Failed to update diagnosis', 'error');
     }
   });
-}
-
-async function openApplyTreatmentModal(diagnosisId) {
-  try {
-    const treatments = await api.treatments.getAll();
-    
-    if (treatments.length === 0) {
-      utils.showAlert('No treatments available yet. Add a treatment first!', 'error');
-      return;
-    }
-
-    const treatmentOptions = availableTreatments.map(t =>
-  `<option value="${t._id}">${utils.escapeHtml(t.name)} (${t.type}) - ${t.successRate}% success</option>`
-).join('');
-    
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
-    modal.innerHTML = `
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>Apply Treatment</h2>
-          <button class="modal-close">&times;</button>
-        </div>
-        <form id="applyTreatmentForm">
-          <div class="form-group">
-            <label class="form-label">Select Treatment</label>
-            <select name="treatmentId" class="form-select" required>
-              <option value="">Choose a treatment...</option>
-              ${treatmentOptions}
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Result</label>
-            <select name="result" class="form-select">
-              <option value="testing">Testing</option>
-              <option value="worked">Worked</option>
-              <option value="didn't work">Didn't Work</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Apply Treatment</button>
-        </form>
-      </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    const form = modal.querySelector('#applyTreatmentForm');
-    const closeBtn = modal.querySelector('.modal-close');
-    
-    closeBtn.addEventListener('click', () => {
-      modal.remove();
-    });
-    
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.remove();
-      }
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const result = formData.get('result');
-      const treatmentId = formData.get('treatmentId');
-      
-      try {
-        await api.diagnoses.applyTreatment(diagnosisId, {
-          treatmentId: treatmentId,
-          result: result
-        });
-        
-        // Update treatment success rate if result is known
-        if (result === 'worked' || result === "didn't work") {
-          await treatmentsModule.updateTreatmentSuccess(treatmentId, result === 'worked');
-        }
-        
-        utils.showAlert('Treatment applied successfully!', 'success');
-        modal.remove();
-        await loadDiagnoses();
-      } catch (error) {
-        utils.showAlert('Failed to apply treatment', 'error');
-      }
-    });
-    
-  } catch (error) {
-    console.error('Error opening apply treatment modal:', error);
-    utils.showAlert('Failed to load treatments', 'error');
-  }
 }
 
 // Setup diagnosis modal
