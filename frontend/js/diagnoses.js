@@ -97,22 +97,121 @@ async function handleDiagnosisAction(e) {
       break;
       
     case 'edit':
-      const newStatus = prompt('Enter new status (ongoing/resolved):');
-      if (newStatus && ['ongoing', 'resolved'].includes(newStatus)) {
-        try {
-          await api.diagnoses.update(diagnosisId, { status: newStatus });
-          utils.showAlert('Diagnosis updated successfully', 'success');
-          await loadDiagnoses();
-        } catch (error) {
-          utils.showAlert('Failed to update diagnosis', 'error');
-        }
-      }
+      await openEditDiagnosisModal(diagnosisId);
       break;
       
     case 'apply':
       await openApplyTreatmentModal(diagnosisId);
       break;
   }
+}
+
+async function openEditDiagnosisModal(diagnosisId) {
+  const diagnosis = diagnoses.find(d => d._id === diagnosisId);
+  if (!diagnosis) {
+    utils.showAlert('Diagnosis not found', 'error');
+    return;
+  }
+  const modal = document.createElement('div');
+  modal.className = 'modal active';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Diagnosis</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="editDiagnosisForm">
+        <div class="form-group">
+          <label class="form-label">Plant Name</label>
+          <input type="text" name="plantName" class="form-input" 
+                 value="${utils.escapeHtml(diagnosis.plantName)}" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select name="status" class="form-select" required>
+            <option value="ongoing" ${diagnosis.status === 'ongoing' ? 'selected' : ''}>
+            Ongoing
+            </option>
+            <option value="resolved" ${diagnosis.status === 'resolved' ? 'selected' : ''}>
+              Resolved
+            </option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Symptoms</label>
+          <input type="text" name="symptoms" class="form-input" 
+                 value="${utils.escapeHtml(diagnosis.symptoms)}" required
+                 placeholder="e.g., yellow leaves, wilting, brown spots">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Photo URL (optional)</label>
+          <input type="url" name="photoUrl" class="form-input" 
+                 value="${diagnosis.photoUrl || ''}"
+                 placeholder="https://example.com/photo.jpg">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-textarea" 
+                    placeholder="Describe the problem in detail...">${utils.escapeHtml(diagnosis.description || '')}</textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  const form = modal.querySelector('#editDiagnosisForm');
+  const closeBtn = modal.querySelector('.modal-close');
+  const cancelBtn = modal.querySelector('.cancel-btn');
+  
+  const closeModal = () => {
+    modal.classList.remove('active');
+    setTimeout(() => modal.remove(), 300);
+  };
+
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const updateData = {
+      plantName: formData.get('plantName'),
+      status: formData.get('status'),
+      symptoms: formData.get('symptoms'),
+      photoUrl: formData.get('photoUrl'),
+      description: formData.get('description')
+    };
+    
+    if (!updateData.photoUrl) delete updateData.photoUrl;
+    if (!updateData.description) delete updateData.description;
+    
+    try {
+      await api.diagnoses.update(diagnosisId, updateData);
+      utils.showAlert(`Diagnosis updated successfully!`);
+      
+      closeModal();
+      await loadDiagnoses();
+    } catch (error) {
+      console.error('Error updating diagnosis:', error);
+      utils.showAlert('Failed to update diagnosis. Please try again.', 'error');
+    }
+  });
 }
 
 async function openApplyTreatmentModal(diagnosisId) {
