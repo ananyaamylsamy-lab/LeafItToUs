@@ -10,7 +10,9 @@ async function init() {
   if (!currentUser) return;
   
   document.getElementById('username').value = currentUser.username;
-  
+  document.getElementById('email').value = currentUser.email || '';
+  document.getElementById('bio').value = currentUser.bio || '';
+  console.log(currentUser);
   await loadUserStats();
   
   document.getElementById('profileForm').addEventListener('submit', async (e) => {

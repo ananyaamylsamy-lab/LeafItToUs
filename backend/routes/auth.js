@@ -29,11 +29,15 @@ router.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      bio: "", // Initialize bio as empty string
       createdAt: new Date(),
     });
 
+    // Store all user info in session
     req.session.userId = result.insertedId.toString();
     req.session.username = username;
+    req.session.email = email;
+    req.session.bio = "";
 
     res.status(201).json({
       message: "User created successfully",
@@ -66,8 +70,11 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
+    // Store all user info in session
     req.session.userId = user._id.toString();
     req.session.username = user.username;
+    req.session.email = user.email || "";
+    req.session.bio = user.bio || "";
 
     res.json({
       message: "Login successful",
@@ -75,6 +82,7 @@ router.post("/login", async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        bio: user.bio || ""
       },
     });
   } catch (error) {
@@ -101,6 +109,8 @@ router.get("/me", (req, res) => {
   res.json({
     userId: req.session.userId,
     username: req.session.username,
+    email: req.session.email || "",
+    bio: req.session.bio || ""
   });
 });
 
@@ -118,6 +128,9 @@ router.put("/profile", async (req, res) => {
       { _id: new ObjectId(req.session.userId) },
       { $set: { email, bio, updatedAt: new Date() } }
     );
+
+    if (email !== undefined) req.session.email = email;
+    if (bio !== undefined) req.session.bio = bio;
 
     res.json({ message: "Profile updated successfully" });
   } catch (error) {
