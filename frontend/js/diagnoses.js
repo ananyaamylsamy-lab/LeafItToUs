@@ -1,6 +1,6 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
-import * as treatments from "./treatments.js";
+import * as treatmentsModule from "./treatments.js";
 
 let currentUser = null;
 let diagnoses = [];
@@ -62,8 +62,8 @@ function renderDiagnoses() {
           ${diagnosis.userId === currentUser.userId ? `
             <button class="action-btn edit-btn" data-action="edit">Edit</button>
             <button class="action-btn delete-btn" data-action="delete">Delete</button>
-            <button class="action-btn apply-treatment-btn" data-action="apply">Apply Treatment</button>
           ` : ''}
+          <button class="action-btn apply-treatment-btn" data-action="apply">Apply Treatment</button>
         </div>
       </div>
     </div>
@@ -222,9 +222,10 @@ async function openApplyTreatmentModal(diagnosisId) {
       utils.showAlert('No treatments available yet. Add a treatment first!', 'error');
       return;
     }
-    const treatmentOptions = treatments.map(t => 
-      `<option value="${t._id}">${utils.escapeHtml(t.name)} (${t.type}) - ${t.successRate}% success</option>`
-    ).join('');
+
+    const treatmentOptions = availableTreatments.map(t =>
+  `<option value="${t._id}">${utils.escapeHtml(t.name)} (${t.type}) - ${t.successRate}% success</option>`
+).join('');
     
     const modal = document.createElement('div');
     modal.className = 'modal active';
@@ -269,7 +270,7 @@ async function openApplyTreatmentModal(diagnosisId) {
         modal.remove();
       }
     });
-  
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(form);
@@ -282,9 +283,9 @@ async function openApplyTreatmentModal(diagnosisId) {
           result: result
         });
         
-        //dinosaur - This update is not working. success rate not updating
+        // Update treatment success rate if result is known
         if (result === 'worked' || result === "didn't work") {
-          await treatments.rate(treatmentId, result === 'worked');
+          await treatmentsModule.updateTreatmentSuccess(treatmentId, result === 'worked');
         }
         
         utils.showAlert('Treatment applied successfully!', 'success');
@@ -301,7 +302,7 @@ async function openApplyTreatmentModal(diagnosisId) {
   }
 }
 
-// Setup diagnosis modal 
+// Setup diagnosis modal
 export function setupDiagnosisModal() {
   const modal = document.getElementById('diagnosisModal');
   const trigger = document.getElementById('addDiagnosisBtn');

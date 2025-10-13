@@ -143,8 +143,10 @@ export async function updateTreatmentSuccess(treatmentId, worked) {
   try {
     await api.treatments.rate(treatmentId, worked);
     await loadTreatments();
+    return true;
   } catch (error) {
     console.error('Error updating treatment success:', error);
+    return false;
   }
 }
  
