@@ -5,11 +5,11 @@ import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// CREATE - Submit new diagnosis
+// (CRUD) CREATE - creating a new diagnosis
 router.post("/", requireAuth, async (req, res) => {
   try {
     const { plantName, symptoms, photoUrl, description } = req.body;
-
+    // Basic validation
     if (!plantName || !symptoms) {
       return res
         .status(400)
@@ -17,7 +17,7 @@ router.post("/", requireAuth, async (req, res) => {
     }
 
     const diagnoses = getCollection("diagnoses");
-
+    // Create diagnosis object
     const diagnosis = {
       userId: req.session.userId,
       username: req.session.username,
@@ -30,7 +30,7 @@ router.post("/", requireAuth, async (req, res) => {
       updatedAt: new Date(),
       treatments: [],
     };
-
+   
     const result = await diagnoses.insertOne(diagnosis);
 
     res.status(201).json({
@@ -43,7 +43,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
-// READ - Get all diagnoses
+// (CRUD)READ - Get all diagnoses
 router.get("/", async (req, res) => {
   try {
     const { search, status, plantSpecies } = req.query;
@@ -94,7 +94,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// UPDATE - Edit diagnosis
+// (CRUD)UPDATE - Edit diagnosis
 router.put("/:id", requireAuth, async (req, res) => {
   try {
     const { symptoms, status, progressNotes, photoUrl } = req.body;
@@ -132,7 +132,7 @@ router.put("/:id", requireAuth, async (req, res) => {
   }
 });
 
-// DELETE - Remove diagnosis
+// (CRUD)DELETE - Remove diagnosis
 router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const diagnoses = getCollection("diagnoses");
@@ -185,5 +185,6 @@ router.post("/:id/treatments", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 export default router;
