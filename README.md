@@ -47,7 +47,7 @@ Build a collaborative web application where plant enthusiasts can diagnose plant
 ### Entries
 ![Image](./images/cards.png)
 
-### Apply treatment Search bar.
+### Apply treatment Search bar
 ![Image](./images/applyTreatment.png)
 
 ### Profile Page
