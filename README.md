@@ -24,8 +24,6 @@ Build a collaborative web application where plant enthusiasts can diagnose plant
 - **Treatment Application System** - Apply specific treatments to diagnoses; log effectiveness results; view which treatments others used and their success rates.
 - **Community Knowledge Base** - Browse similar plant problems, discover proven solutions from experienced gardeners, and build collective plant care expertise.
 
-## Creative Features
-- <Dinosaur>
 
 ## Screenshots
 ### Landing Page
@@ -138,38 +136,6 @@ Create a .env file in the backend directory:
 
 2. Open website at `http://localhost:3000`
 
-## Diagnoses Collection
-```
-{
-  _id: ObjectId,
-  userId: String,
-  username: String,
-  plantName: String,
-  symptoms: String,
-  photoUrl: String,
-  description: String,
-  status: String, // "ongoing" or "resolved"
-  treatments: Array,
-  createdAt: Date,
-  updatedAt: Date
-}
-```
-## Treatments Collection
-```
-{
-  _id: ObjectId,
-  userId: String,
-  username: String,
-  name: String,
-  type: String, // "organic" or "chemical"
-  problemsSolved: String,
-  ingredients: Array,
-  instructions: String,
-  successRate: Number,
-  applications: Number,
-  createdAt: Date
-}
-```
 ## License
 MIT License - Permission is hereby granted to use, copy, modify, and distribute this software.
 
@@ -190,5 +156,8 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 
 **Use of AI**
 1. **Brainstorming**
-   - Prompts: "I have my resume, my webpage expected layour drawn, features I need to include as a graduate student, let me know if I missed any sections"
- 
+   - Prompts: "I want shades for green to put in my web project give me few gradients"
+2. **Git Issue**              
+               "I am facing this git merge issues and there is screenshot attached."
+3. **Mongo Atlas**
+               "I want to export my collection from mongo atlas what i should do"
