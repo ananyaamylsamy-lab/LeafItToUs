@@ -97,7 +97,7 @@ router.get("/:id", async (req, res) => {
 // (CRUD)UPDATE - Edit diagnosis
 router.put("/:id", requireAuth, async (req, res) => {
   try {
-    const { symptoms, status, progressNotes, photoUrl } = req.body;
+    const { symptoms, status, description, photoUrl } = req.body;
     const diagnoses = getCollection("diagnoses");
 
     const diagnosis = await diagnoses.findOne({
@@ -115,7 +115,7 @@ router.put("/:id", requireAuth, async (req, res) => {
     const updates = {
       ...(symptoms && { symptoms }),
       ...(status && { status }),
-      ...(progressNotes && { progressNotes }),
+      ...(description !== undefined && { description }),
       ...(photoUrl !== undefined && { photoUrl }),
       updatedAt: new Date(),
     };

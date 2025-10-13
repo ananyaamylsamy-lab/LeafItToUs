@@ -204,7 +204,7 @@ body {
   padding: 30px;
   max-width: 500px;
   width: 90%;
-  max-height: 80vh;
+  max-height: 100vh;
   overflow-y: auto;
 }
 
@@ -221,6 +221,20 @@ body {
   font-size: 1.5rem;
   cursor: pointer;
   color: #999;
+}
+
+.diagnosis-info {
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.diagnosis-info strong {
+  color: #6B8E23;
+  margin-right: 8px;
 }
 
 .hero {
@@ -653,7 +667,7 @@ footer p {
   border-radius: 5px;
   margin-top: 8px;
   background: white;
-  display: none; /* ADD THIS - Hidden by default */
+  display: none;
 }
 
 .treatment-option {

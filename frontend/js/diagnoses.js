@@ -133,10 +133,8 @@ async function openEditDiagnosisModal(diagnosisId) {
         <button class="modal-close">&times;</button>
       </div>
       <form id="editDiagnosisForm">
-        <div class="form-group">
-          <label class="form-label">Plant Name</label>
-          <input type="text" name="plantName" class="form-input" 
-                 value="${utils.escapeHtml(diagnosis.plantName)}" required>
+        <div class="diagnosis-info">
+          <strong>Plant Name:</strong> ${utils.escapeHtml(diagnosis.plantName)}
         </div>
         
         <div class="form-group">
@@ -182,7 +180,13 @@ async function openEditDiagnosisModal(diagnosisId) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    
+    const data = {
+      status: formData.get('status'),
+      symptoms: formData.get('symptoms'),
+      photoUrl: formData.get('photoUrl') || '',
+      description: formData.get('description') || ''
+    };
     
     try {
       await api.diagnoses.update(diagnosisId, data);
