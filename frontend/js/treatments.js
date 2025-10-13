@@ -83,7 +83,7 @@ async function handleTreatmentAction(e) {
   
   switch(action) {
     case 'delete':
-      if (confirm('Are you sure you want to delete this treatment?')) {
+      utils.showConfirm('Delete this treatment?', async () => {
         try {
           await api.treatments.delete(treatmentId);
           utils.showAlert('Treatment deleted successfully', 'success');
@@ -91,7 +91,7 @@ async function handleTreatmentAction(e) {
         } catch (error) {
           utils.showAlert('Failed to delete treatment', 'error');
         }
-      }
+      });
       break;
     case 'edit':
       alert('Edit functionality would open a modal here');

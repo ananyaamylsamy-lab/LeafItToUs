@@ -95,7 +95,7 @@ async function handleDiagnosisAction(e) {
   
   switch(action) {
     case 'delete':
-      if (confirm('Are you sure you want to delete this diagnosis?')) {
+      utils.showConfirm('Delete this diagnosis?', async () => {
         try {
           await api.diagnoses.delete(diagnosisId);
           utils.showAlert('Diagnosis deleted successfully', 'success');
@@ -103,7 +103,7 @@ async function handleDiagnosisAction(e) {
         } catch (error) {
           utils.showAlert('Failed to delete diagnosis', 'error');
         }
-      }
+      });
       break;
       
     case 'edit':
