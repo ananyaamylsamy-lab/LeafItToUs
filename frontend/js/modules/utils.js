@@ -1,6 +1,5 @@
 // Utility functions
 export const utils = {
-  // Format date for display
   formatDate(dateString) {
     const date = new Date(dateString);
     const options = {
@@ -13,7 +12,6 @@ export const utils = {
     return date.toLocaleDateString("en-US", options);
   },
 
-  // Show alert message
   showAlert(message, type = "success") {
     const alertDiv = document.createElement("div");
     alertDiv.className = `alert alert-${type}`;
@@ -27,7 +25,6 @@ export const utils = {
     }, 5000);
   },
 
-  // Create element with classes
   createElement(tag, classes = [], content = "") {
     const element = document.createElement(tag);
     if (classes.length) {
@@ -39,14 +36,13 @@ export const utils = {
     return element;
   },
 
-  // Escape HTML to prevent XSS
   escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   },
 
-  // Debounce function for search
+  // For search operation
   debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {

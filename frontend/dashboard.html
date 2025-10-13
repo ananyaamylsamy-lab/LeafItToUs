@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LeafItToUs: Collaborative web application designed to help plant enthusiasts diagnose, treat, and track plant health issues">
+  <meta name="author" content="Manasha Sekar & Ananyaa Mylsamy">
   <title>Dashboard - Leaf It to Us</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/dashboard.css">
@@ -10,6 +12,7 @@
   <link rel="stylesheet" href="css/treatments.css">
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="/dashboard.html" class="nav-brand">🌿 Leaf It to Us</a>
@@ -25,6 +28,7 @@
       <h1 class="dashboard-welcome">Welcome back, <span id="username"></span>!</h1>
       <p>Ready to help your plants thrive?</p>
       
+      <!-- Statistics -->
       <div class="dashboard-stats">
         <div class="stat-card">
           <div class="stat-number" id="diagnosisCount">0</div>
@@ -41,7 +45,7 @@
       </div>
     </div>
 
-    <!-- Filters -->
+    <!-- Search -->
     <div class="filter-bar">
       <input 
         type="text" 
@@ -53,7 +57,6 @@
         <option value="">All Status</option>
         <option value="ongoing">Ongoing</option>
         <option value="resolved">Resolved</option>
-        <option value="testing">Testing</option>
       </select>
       <select id="typeFilter" class="form-select">
         <option value="">All Treatments</option>

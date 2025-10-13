@@ -1,6 +1,7 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
 
+// Handle login form submission
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   
@@ -11,6 +12,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   };
   
   try {
+    // Authenticate user
     const response = await api.auth.login(credentials);
     utils.showAlert("Login successful! Redirecting...", "success");
     setTimeout(() => {

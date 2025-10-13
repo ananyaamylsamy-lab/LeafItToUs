@@ -5,7 +5,7 @@ import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// CREATE - Add treatment method
+// Create in CRUD: Add treatment method
 router.post("/", requireAuth, async (req, res) => {
   try {
     const { name, instructions, type, problemsSolved, ingredients } = req.body;
@@ -21,7 +21,7 @@ router.post("/", requireAuth, async (req, res) => {
       username: req.session.username,
       name,
       instructions,
-      type, // organic or chemical
+      type,
       problemsSolved,
       ingredients: ingredients || [],
       successRate: 0,
@@ -42,7 +42,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
-// READ - Get all treatments
+// Read in CRUD: Get all treatments
 router.get("/", async (req, res) => {
   try {
     const { type, problem, search } = req.query;
@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// READ - Get single treatment
+// Get single treatment
 router.get("/:id", async (req, res) => {
   try {
     const treatments = getCollection("treatments");
@@ -93,7 +93,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// UPDATE - Edit treatment
+// Update in CRUD: Edit treatment
 router.put("/:id", requireAuth, async (req, res) => {
   try {
     const { instructions, ingredients, type } = req.body;
@@ -130,7 +130,7 @@ router.put("/:id", requireAuth, async (req, res) => {
   }
 });
 
-// DELETE - Remove treatment
+// Delete in CRUD: Remove treatment
 router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const treatments = getCollection("treatments");

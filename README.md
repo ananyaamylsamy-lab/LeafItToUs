@@ -42,7 +42,7 @@ Build a collaborative web application where plant enthusiasts can diagnose plant
 ![Gallery](./images/palette2.jpg)
 
 ## Live Webpage
-- <Dinosaur>
+https://leafittous.onrender.com
 
 ## Slides
 https://docs.google.com/presentation/d/13cU8w33jNEzF5RX6STwZbzTthm9KhT3fNp5iPCyrMwk/edit?slide=id.g389c7506f58_0_1567#slide=id.g389c7506f58_0_1567
@@ -73,9 +73,9 @@ https://docs.google.com/document/d/1Ec-meutJBaaw4cw0w6GMzTTqJfABBZgBzkpjO-1rq8E/
    ```
 
 ### Running the Project
-1. Start the development server:
+1. Navigate to backend folder and start the mongodb server:
    ```bash
-   http-server
+   npm start
    ```
 
 2. Open website at `http://127.0.0.1:8080`

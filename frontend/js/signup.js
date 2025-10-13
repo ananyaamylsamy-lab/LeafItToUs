@@ -1,6 +1,7 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
 
+// Handle signup form submission
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   
@@ -12,6 +13,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   };
   
   try {
+    // Create new user account
     const response = await api.auth.signup(userData);
     utils.showAlert("Account created successfully! Redirecting...", "success");
     setTimeout(() => {

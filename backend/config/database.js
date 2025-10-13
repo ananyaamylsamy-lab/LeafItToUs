@@ -6,6 +6,7 @@ dotenv.config();
 let db = null;
 let client = null;
 
+// Establish MongoDB connection
 export const connectDB = async () => {
   try {
     const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
@@ -32,7 +33,6 @@ export const getCollection = (collectionName) => {
   return database.collection(collectionName);
 };
 
-// Cleanup on process termination
 process.on("SIGINT", async () => {
   if (client) {
     await client.close();

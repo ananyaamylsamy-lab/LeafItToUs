@@ -1,4 +1,4 @@
-/* Dashboard specific styles */
+/* Dashboard styles */
 .dashboard-header {
   background: white;
   padding: 30px;
@@ -15,7 +15,7 @@
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 20px;
 }
@@ -23,19 +23,22 @@
 .stat-card {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .stat-number {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .stat-label {
   opacity: 0.9;
   margin-top: 5px;
+  font-size: 0.95rem;
 }
 
 .dashboard-content {
@@ -60,16 +63,27 @@
   background: white;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .filter-bar input,
 .filter-bar select {
   flex: 1;
   min-width: 200px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 1.1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 @media (max-width: 768px) {

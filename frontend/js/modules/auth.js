@@ -1,6 +1,7 @@
-// Authentication utility module
+// Authentication utility functions
 import { api } from "./api.js";
 
+// Check if user is authenticated
 export const auth = {
   async checkAuth() {
     try {
@@ -11,6 +12,7 @@ export const auth = {
     }
   },
 
+  // Redirect to login if not authenticated
   async requireAuth() {
     const user = await this.checkAuth();
     if (!user) {
@@ -20,6 +22,7 @@ export const auth = {
     return user;
   },
 
+  // Log out and redirect to home
   async logout() {
     try {
       await api.auth.logout();

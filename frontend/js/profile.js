@@ -4,20 +4,18 @@ import { utils } from "./modules/utils.js";
 
 let currentUser = null;
 
+// Initialize profile page
 async function init() {
   currentUser = await auth.requireAuth();
   if (!currentUser) return;
   
-  // Load user profile
   document.getElementById('username').value = currentUser.username;
   
-  // Load stats
   await loadUserStats();
   
-  // Setup form
   document.getElementById('profileForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const profileData = {
       email: formData.get('email'),
@@ -32,12 +30,12 @@ async function init() {
     }
   });
   
-  // Logout button
   document.getElementById('logoutBtn').addEventListener('click', () => {
     auth.logout();
   });
 }
 
+// Load and display user statistics
 async function loadUserStats() {
   try {
     const [diagnoses, treatments] = await Promise.all([

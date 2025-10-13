@@ -1,4 +1,4 @@
-/* Diagnosis card styles */
+/* Diagnoses styles */
 .diagnosis-card {
   background: white;
   border-radius: 10px;
@@ -110,4 +110,112 @@
 
 .apply-treatment-btn:hover {
   background: #38a169;
+}
+
+.applied-treatments {
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+.applied-treatments h4 {
+  margin-bottom: 10px;
+  color: #1e40af;
+  font-size: 0.95rem;
+}
+
+.applied-treatments ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.applied-treatments li {
+  padding: 8px 0;
+  border-bottom: 1px solid #dbeafe;
+  font-size: 0.9rem;
+}
+
+.applied-treatments li:last-child {
+  border-bottom: none;
+}
+
+.treatment-result {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.result-testing {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.result-worked {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.result-didnt-work {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.applied-treatments {
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+.applied-treatments h4 {
+  margin-bottom: 10px;
+  color: #1e40af;
+  font-size: 0.95rem;
+}
+
+.applied-treatments ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.applied-treatments li {
+  padding: 8px 0;
+  border-bottom: 1px solid #dbeafe;
+  font-size: 0.9rem;
+}
+
+.applied-treatments li:last-child {
+  border-bottom: none;
+}
+
+.treatment-result {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.result-testing {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.result-worked {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.result-didnt-work {
+  background: #fee2e2;
+  color: #991b1b;
 }
