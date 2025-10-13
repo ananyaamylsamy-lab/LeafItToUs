@@ -1,8 +1,7 @@
-// API module for making requests to backend
 const API_URL = "/api";
 
 export const api = {
-  // Generic fetch wrapper
+  // General request method
   async request(endpoint, options = {}) {
     const config = {
       ...options,
