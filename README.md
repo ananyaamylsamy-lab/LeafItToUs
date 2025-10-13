@@ -27,26 +27,31 @@ Build a collaborative web application where plant enthusiasts can diagnose plant
 
 ## Screenshots
 ### Landing Page
-![LandingPage](./images/LandingPage.png)
+![LandingPage](./images/landingPage.png)
 
 ### Sign Up 
-![Image](./images/SignupPage.png)
+![Image](./images/signupPage.png)
 
 ### Login
-![Image](./images/LoginPage.png)
+![Image](./images/loginPage.png)
 
 ### Dashboard 
-![Dashboard](./images/Dashboard.png)
+![Dashboard](./images/dashboard.png)
 
 ### Forms
 ##### Diagnosis
-![Image](./images/FormForDiagnosis.png)
+![Image](./images/formForDiagnoses.png)
 ##### Treatment
-![Image](./images/FormForTreatment.png)
+![Image](./images/formForTreatments.png)
 
 ### Entries
-![Image](./images/Diagnoses.png)
-![Image](./images/Treatment.png)
+![Image](./images/cards.png)
+
+### Apply treatment Search bar.
+![Image](./images/applyTreatment.png)
+
+### Profile Page
+![Image](./images/profile.png)
 
 ## Live Webpage
 https://leafittous.onrender.com
@@ -134,7 +139,7 @@ Create a .env file in the backend directory:
    npm start
    ```
 
-2. Open the website at `http://localhost:3000`
+2. Open website at `http://localhost:3000`
 
 ## License
 MIT License - Permission is hereby granted to use, copy, modify, and distribute this software.
@@ -156,8 +161,8 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
 
 **Use of AI**
 1. **Brainstorming**
-   - Prompts: "I want shades for green to put in my web project, give me a few gradients."
+   - Prompts: "I want shades for green to put in my web project give me few gradients"
 2. **Git Issue**              
-   - Prompts: "I am facing these git merge issues, and there isa  screenshot attached."
+               "I am facing this git merge issues and there is screenshot attached."
 3. **Mongo Atlas**
-   - Prompts: "I want to export my collection from MongoDB Atlas. What should I do?"
+               "I want to export my collection from mongo atlas what i should do"
