@@ -1,6 +1,7 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
 import { openApplyTreatmentModal } from "./applyTreatments.js";
+import { updateStats } from "./dashboard.js";
 
 let currentUser = null;
 let diagnoses = [];
@@ -100,6 +101,7 @@ async function handleDiagnosisAction(e) {
           await api.diagnoses.delete(diagnosisId);
           utils.showAlert('Diagnosis deleted successfully', 'success');
           await loadDiagnoses();
+          updateStats();
         } catch (error) {
           utils.showAlert('Failed to delete diagnosis', 'error');
         }
@@ -226,6 +228,7 @@ export function setupDiagnosisModal() {
       modal.classList.remove('active');
       form.reset();
       await loadDiagnoses();
+      updateStats();
     } catch (error) {
       utils.showAlert('Failed to add diagnosis', 'error');
     }

@@ -26,7 +26,7 @@ async function init() {
 }
 
 // Update dashboard statistics
-function updateStats() {
+export function updateStats() {
   document.getElementById('diagnosisCount').textContent = diagnoses.getDiagnosisCount();
   document.getElementById('treatmentCount').textContent = treatments.getTreatmentCount();
   document.getElementById('successRate').textContent = `${treatments.getAverageSuccessRate()}%`;

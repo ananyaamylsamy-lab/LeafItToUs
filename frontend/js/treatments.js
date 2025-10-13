@@ -1,5 +1,6 @@
 import { api } from "./modules/api.js";
 import { utils } from "./modules/utils.js";
+import { updateStats } from "./dashboard.js";
  
 let currentUser = null;
 let treatments = [];
@@ -88,6 +89,7 @@ async function handleTreatmentAction(e) {
           await api.treatments.delete(treatmentId);
           utils.showAlert('Treatment deleted successfully', 'success');
           await loadTreatments();
+          updateStats();
         } catch (error) {
           utils.showAlert('Failed to delete treatment', 'error');
         }
@@ -214,6 +216,7 @@ export function setupTreatmentModal() {
       modal.classList.remove('active');
       form.reset();
       await loadTreatments();
+      updateStats();
     } catch (error) {
       utils.showAlert('Failed to add treatment', 'error');
     }
