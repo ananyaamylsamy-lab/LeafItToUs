@@ -94,9 +94,93 @@ async function handleTreatmentAction(e) {
       });
       break;
     case 'edit':
-      alert('Edit functionality would open a modal here');
+      await openEditTreatmentModal(treatmentId);
       break;
   }
+}
+
+// Open edit modal
+async function openEditTreatmentModal(treatmentId) {
+  const treatment = treatments.find(t => t._id === treatmentId);
+  if (!treatment) {
+    utils.showAlert('Treatment not found', 'error');
+    return;
+  }
+
+  const modal = document.createElement('div');
+  modal.className = 'modal active';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Treatment</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="editTreatmentForm">
+        <div class="diagnosis-info">
+          <strong>Treatment Name:</strong> ${utils.escapeHtml(treatment.name)}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select name="type" class="form-select" required>
+            <option value="organic" ${treatment.type === 'organic' ? 'selected' : ''}>Organic</option>
+            <option value="chemical" ${treatment.type === 'chemical' ? 'selected' : ''}>Chemical</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Problems Solved</label>
+          <input type="text" name="problemsSolved" class="form-input"
+                 value="${utils.escapeHtml(treatment.problemsSolved)}" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ingredients (comma-separated)</label>
+          <input type="text" name="ingredients" class="form-input"
+                 value="${treatment.ingredients ? treatment.ingredients.join(', ') : ''}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Instructions</label>
+          <textarea name="instructions" class="form-textarea" required>${utils.escapeHtml(treatment.instructions)}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const form = modal.querySelector('#editTreatmentForm');
+  const closeBtn = modal.querySelector('.modal-close');
+
+  closeBtn.addEventListener('click', () => modal.remove());
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const data = {
+      type: formData.get('type'),
+      problemsSolved: formData.get('problemsSolved'),
+      instructions: formData.get('instructions'),
+      ingredients: formData.get('ingredients') ?
+        formData.get('ingredients').split(',').map(i => i.trim()) : []
+    };
+
+    try {
+      await api.treatments.update(treatmentId, data);
+      utils.showAlert('Treatment updated successfully!', 'success');
+      modal.remove();
+      await loadTreatments();
+    } catch (error) {
+      utils.showAlert('Failed to update treatment', 'error');
+    }
+  });
 }
  
 // Setup modal

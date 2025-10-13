@@ -96,7 +96,7 @@ router.get("/:id", async (req, res) => {
 // Update in CRUD: Edit treatment
 router.put("/:id", requireAuth, async (req, res) => {
   try {
-    const { instructions, ingredients, type } = req.body;
+    const { instructions, ingredients, type, problemsSolved } = req.body;
     const treatments = getCollection("treatments");
 
     const treatment = await treatments.findOne({
@@ -115,6 +115,7 @@ router.put("/:id", requireAuth, async (req, res) => {
       ...(instructions && { instructions }),
       ...(ingredients && { ingredients }),
       ...(type && { type }),
+      ...(problemsSolved && { problemsSolved }),
       updatedAt: new Date(),
     };
 

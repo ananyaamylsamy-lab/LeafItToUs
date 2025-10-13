@@ -72,8 +72,8 @@ async function renderDiagnoses() {
           ${diagnosis.userId === currentUser.userId ? `
             <button class="action-btn edit-btn" data-action="edit">Edit</button>
             <button class="action-btn delete-btn" data-action="delete">Delete</button>
+            <button class="action-btn apply-treatment-btn" data-action="apply">Apply Treatment</button>
           ` : ''}
-          <button class="action-btn apply-treatment-btn" data-action="apply">Apply Treatment</button>
         </div>
       </div>
     </div>
