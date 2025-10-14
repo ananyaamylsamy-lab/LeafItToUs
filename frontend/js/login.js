@@ -4,13 +4,13 @@ import { utils } from "./modules/utils.js";
 // Handle login form submission
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  
+
   const formData = new FormData(e.target);
   const credentials = {
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  
+
   try {
     // Authenticate user
     const response = await api.auth.login(credentials);

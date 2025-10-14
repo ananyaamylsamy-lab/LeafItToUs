@@ -16,18 +16,18 @@ export const utils = {
     const alertDiv = document.createElement("div");
     alertDiv.className = `alert alert-${type}`;
     alertDiv.textContent = message;
-    
+
     const container = document.querySelector(".container") || document.body;
     container.insertBefore(alertDiv, container.firstChild);
-    
+
     setTimeout(() => {
       alertDiv.remove();
     }, 5000);
   },
 
   showConfirm(message, onConfirm) {
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
+    const modal = document.createElement("div");
+    modal.className = "modal active";
     modal.innerHTML = `
       <div class="modal-content confirm-modal">
         <h3>${message}</h3>
@@ -40,16 +40,16 @@ export const utils = {
 
     document.body.appendChild(modal);
 
-    const confirmBtn = modal.querySelector('.confirm-btn');
-    const cancelBtn = modal.querySelector('.cancel-btn');
+    const confirmBtn = modal.querySelector(".confirm-btn");
+    const cancelBtn = modal.querySelector(".cancel-btn");
 
-    confirmBtn.addEventListener('click', () => {
+    confirmBtn.addEventListener("click", () => {
       modal.remove();
       onConfirm();
     });
 
-    cancelBtn.addEventListener('click', () => modal.remove());
-    modal.addEventListener('click', (e) => {
+    cancelBtn.addEventListener("click", () => modal.remove());
+    modal.addEventListener("click", (e) => {
       if (e.target === modal) modal.remove();
     });
   },

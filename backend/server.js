@@ -33,15 +33,15 @@ app.use(
     saveUninitialized: false,
     proxy: true,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24, 
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 1000 * 60 * 60 * 24,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     },
   })
 );
 
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -53,8 +53,8 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Leaf It to Us API is running" });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 // Start server

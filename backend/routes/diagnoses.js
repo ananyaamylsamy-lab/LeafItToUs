@@ -30,7 +30,7 @@ router.post("/", requireAuth, async (req, res) => {
       updatedAt: new Date(),
       treatments: [],
     };
-   
+
     const result = await diagnoses.insertOne(diagnosis);
 
     res.status(201).json({
@@ -185,6 +185,5 @@ router.post("/:id/treatments", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 export default router;

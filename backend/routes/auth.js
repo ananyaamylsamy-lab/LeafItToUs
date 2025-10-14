@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        bio: user.bio || ""
+        bio: user.bio || "",
       },
     });
   } catch (error) {
@@ -110,7 +110,7 @@ router.get("/me", (req, res) => {
     userId: req.session.userId,
     username: req.session.username,
     email: req.session.email || "",
-    bio: req.session.bio || ""
+    bio: req.session.bio || "",
   });
 });
 

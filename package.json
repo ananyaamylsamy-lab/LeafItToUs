@@ -1,0 +1,28 @@
+{
+  "name": "leaf-it-to-us",
+  "version": "1.0.0",
+  "description": "Plant health diagnosis platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "lint": "eslint .",
+    "format": "prettier --write backend frontend"
+  },
+  "author": "Manasha Sekar & Ananyaa Mylsamy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ananyaamylsamy-lab/LeafItToUs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2"
+  }
+}
