@@ -127,7 +127,6 @@ export async function openApplyTreatmentModal(diagnosisId, reloadCallback) {
 
     document.addEventListener("mousedown", hideResultsHandler);
 
-
     const originalRemove = modal.remove.bind(modal);
     modal.remove = () => {
       document.removeEventListener("mousedown", hideResultsHandler);
