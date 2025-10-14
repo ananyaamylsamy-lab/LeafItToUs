@@ -67,7 +67,6 @@ export async function openApplyTreatmentModal(diagnosisId, reloadCallback) {
     const resultsDiv = document.getElementById("treatmentResults");
     const hiddenInput = document.getElementById("selectedTreatmentId");
 
-    // Search functionality - show on focus
     searchInput.addEventListener("focus", () => {
       resultsDiv.style.display = "block";
     });
@@ -120,13 +119,14 @@ export async function openApplyTreatmentModal(diagnosisId, reloadCallback) {
     });
 
     const hideResultsHandler = (e) => {
-      if (!modal.contains(e.target)) return; 
+      if (!modal.contains(e.target)) return;
       if (searchInput.contains(e.target) || resultsDiv.contains(e.target))
-        return; 
+        return;
       resultsDiv.style.display = "none";
     };
 
     document.addEventListener("mousedown", hideResultsHandler);
+
 
     const originalRemove = modal.remove.bind(modal);
     modal.remove = () => {

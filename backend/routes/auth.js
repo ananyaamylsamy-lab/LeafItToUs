@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      bio: "", 
+      bio: "",
       createdAt: new Date(),
     });
 
