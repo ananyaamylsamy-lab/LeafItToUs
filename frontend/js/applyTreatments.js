@@ -119,18 +119,15 @@ export async function openApplyTreatmentModal(diagnosisId, reloadCallback) {
       }
     });
 
-    // Hide dropdown when clicking outside - FIX HERE
     const hideResultsHandler = (e) => {
-      if (!modal.contains(e.target)) return; // Ignore clicks outside modal
+      if (!modal.contains(e.target)) return; 
       if (searchInput.contains(e.target) || resultsDiv.contains(e.target))
-        return; // Ignore clicks inside search area
+        return; 
       resultsDiv.style.display = "none";
     };
 
-    // Use mousedown instead of click to avoid timing issues
     document.addEventListener("mousedown", hideResultsHandler);
 
-    // Clean up event listener when modal closes
     const originalRemove = modal.remove.bind(modal);
     modal.remove = () => {
       document.removeEventListener("mousedown", hideResultsHandler);
