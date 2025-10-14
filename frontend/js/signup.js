@@ -15,6 +15,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   try {
     // Create new user account
     const response = await api.auth.signup(userData);
+    console.log(response);
     utils.showAlert("Account created successfully! Redirecting...", "success");
     setTimeout(() => {
       window.location.href = "/dashboard.html";

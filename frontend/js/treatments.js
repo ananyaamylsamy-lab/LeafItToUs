@@ -108,7 +108,7 @@ async function handleTreatmentAction(e) {
           await loadTreatments();
           updateStats();
         } catch (error) {
-          utils.showAlert("Failed to delete treatment", "error");
+          utils.showAlert("Failed to delete treatment", error);
         }
       });
       break;
@@ -201,7 +201,7 @@ async function openEditTreatmentModal(treatmentId) {
       modal.remove();
       await loadTreatments();
     } catch (error) {
-      utils.showAlert("Failed to update treatment", "error");
+      utils.showAlert("Failed to update treatment", error);
     }
   });
 }
@@ -239,7 +239,7 @@ export function setupTreatmentModal() {
       await loadTreatments();
       updateStats();
     } catch (error) {
-      utils.showAlert("Failed to add treatment", "error");
+      utils.showAlert("Failed to add treatment", error);
     }
   });
 

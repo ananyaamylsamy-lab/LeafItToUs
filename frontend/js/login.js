@@ -14,6 +14,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   try {
     // Authenticate user
     const response = await api.auth.login(credentials);
+    console.log(response);
     utils.showAlert("Login successful! Redirecting...", "success");
     setTimeout(() => {
       window.location.href = "/dashboard.html";

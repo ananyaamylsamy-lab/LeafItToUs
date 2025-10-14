@@ -1,4 +1,3 @@
-import { api } from "./modules/api.js";
 import { auth } from "./modules/auth.js";
 import { utils } from "./modules/utils.js";
 import * as diagnoses from "./diagnoses.js";

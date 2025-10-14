@@ -8,6 +8,7 @@ export const auth = {
       const user = await api.auth.getCurrentUser();
       return user;
     } catch (error) {
+      console.error("Authentication check failed:", error);
       return null;
     }
   },

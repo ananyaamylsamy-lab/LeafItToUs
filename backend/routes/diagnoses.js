@@ -122,7 +122,7 @@ router.put("/:id", requireAuth, async (req, res) => {
 
     await diagnoses.updateOne(
       { _id: new ObjectId(req.params.id) },
-      { $set: updates }
+      { $set: updates },
     );
 
     res.json({ message: "Diagnosis updated successfully" });
@@ -176,7 +176,7 @@ router.post("/:id/treatments", requireAuth, async (req, res) => {
       {
         $push: { treatments: application },
         $set: { updatedAt: new Date() },
-      }
+      },
     );
 
     res.json({ message: "Treatment applied successfully" });

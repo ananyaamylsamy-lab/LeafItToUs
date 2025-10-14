@@ -119,7 +119,7 @@ async function handleDiagnosisAction(e) {
           await loadDiagnoses();
           updateStats();
         } catch (error) {
-          utils.showAlert("Failed to delete diagnosis", "error");
+          utils.showAlert("Failed to delete diagnosis", error);
         }
       });
       break;
@@ -213,7 +213,7 @@ async function openEditDiagnosisModal(diagnosisId) {
       await loadDiagnoses();
       updateStats();
     } catch (error) {
-      utils.showAlert("Failed to update diagnosis", "error");
+      utils.showAlert("Failed to update diagnosis", error);
     }
   });
 }
@@ -247,7 +247,7 @@ export function setupDiagnosisModal() {
       await loadDiagnoses();
       updateStats();
     } catch (error) {
-      utils.showAlert("Failed to add diagnosis", "error");
+      utils.showAlert("Failed to add diagnosis", error);
     }
   });
 

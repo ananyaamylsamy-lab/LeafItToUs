@@ -121,7 +121,7 @@ router.put("/:id", requireAuth, async (req, res) => {
 
     await treatments.updateOne(
       { _id: new ObjectId(req.params.id) },
-      { $set: updates }
+      { $set: updates },
     );
 
     res.json({ message: "Treatment updated successfully" });
@@ -173,7 +173,7 @@ router.post("/:id/rate", requireAuth, async (req, res) => {
 
     const newApplications = treatment.applications + 1;
     const currentSuccesses = Math.round(
-      (treatment.successRate * treatment.applications) / 100
+      (treatment.successRate * treatment.applications) / 100,
     );
     const newSuccesses = success ? currentSuccesses + 1 : currentSuccesses;
     const newSuccessRate = Math.round((newSuccesses / newApplications) * 100);
@@ -186,7 +186,7 @@ router.post("/:id/rate", requireAuth, async (req, res) => {
           successRate: newSuccessRate,
           updatedAt: new Date(),
         },
-      }
+      },
     );
 
     res.json({ message: "Treatment rated successfully" });

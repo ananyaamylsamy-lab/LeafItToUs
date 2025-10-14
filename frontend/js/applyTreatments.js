@@ -173,7 +173,7 @@ export async function openApplyTreatmentModal(diagnosisId, reloadCallback) {
           await reloadCallback();
         }
       } catch (error) {
-        utils.showAlert("Failed to apply treatment", "error");
+        utils.showAlert("Failed to apply treatment", error);
       }
     });
   } catch (error) {

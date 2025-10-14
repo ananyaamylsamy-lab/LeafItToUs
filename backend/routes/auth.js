@@ -126,8 +126,9 @@ router.put("/profile", async (req, res) => {
 
     const result = await users.updateOne(
       { _id: new ObjectId(req.session.userId) },
-      { $set: { email, bio, updatedAt: new Date() } }
+      { $set: { email, bio, updatedAt: new Date() } },
     );
+    console.log(result);
 
     if (email !== undefined) req.session.email = email;
     if (bio !== undefined) req.session.bio = bio;

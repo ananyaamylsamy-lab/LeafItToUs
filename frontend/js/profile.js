@@ -30,7 +30,7 @@ async function init() {
         await api.auth.updateProfile(profileData);
         utils.showAlert("Profile updated successfully!", "success");
       } catch (error) {
-        utils.showAlert("Failed to update profile", "error");
+        utils.showAlert("Failed to update profile", error);
       }
     });
 
