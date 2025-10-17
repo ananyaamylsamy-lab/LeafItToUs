@@ -172,3 +172,5 @@ MIT License - Permission is hereby granted to use, copy, modify, and distribute 
    - Prompts: "I want to export my collection from Mongo Atlas what should I do" and "How do I drop a key from all entries?"
    - Issue: Needed to drop a specific key–value pair from all records in a collection.
    - Used AI to identify the correct steps to export data and modify the collection respectively.
+
+TODO: Design Document is missing
